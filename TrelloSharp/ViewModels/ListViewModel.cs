@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TrelloSharp.Entities
+namespace TrelloSharp.ViewModels
 {
-    public class List : EntityBase
+    public class ListViewModel : EntityBase
     {
     }
 }

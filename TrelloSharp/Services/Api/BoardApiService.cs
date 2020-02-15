@@ -1,69 +1,69 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TrelloSharp.Entities;
+using TrelloSharp.ViewModels;
 
 namespace TrelloSharp.Services.Api
 {
     public class BoardApiService : ApiServiceBase
     {
-        public Board Board { get; private set; }
+        public BoardViewModel Board { get; private set; }
 
-        protected BoardApiService(Board board, string key, string token) : base(key, token)
+        protected BoardApiService(BoardViewModel board, string key, string token) : base(key, token)
         {
             Board = board;
         }
 
-        public async Task<List<Member>> GetMembers()
+        public async Task<List<MemberViewModel>> GetMembers()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/members?key={Key}&token={Token}";
 
-            var members = await Get<Member[]>(url);
+            var members = await Get<MemberViewModel[]>(url);
 
             return members.ToList();
         }
 
-        public async Task<List<CustomField>> GetCustomFields()
+        public async Task<List<CustomFieldViewModel>> GetCustomFields()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/customFields?key={Key}&token={Token}";
 
-            var customFields = await Get<CustomField[]>(url);
+            var customFields = await Get<CustomFieldViewModel[]>(url);
 
             return customFields.ToList();
         }
 
-        public async Task<List<CheckList>> GetCheckLists()
+        public async Task<List<CheckListViewModel>> GetCheckLists()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/checklists?key={Key}&token={Token}";
 
-            var checklists = await Get<CheckList[]>(url);
+            var checklists = await Get<CheckListViewModel[]>(url);
 
             return checklists.ToList();
         }
 
-        public async Task<List<Card>> GetCards()
+        public async Task<List<CardViewModel>> GetCards()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/cards?filter=open&customFieldItems=true&key={Key}&token={Token}";
 
-            var cards = await Get<Card[]>(url);
+            var cards = await Get<CardViewModel[]>(url);
 
             return cards.ToList();
         }
 
-        public async Task<List<List>> GetLists()
+        public async Task<List<ListViewModel>> GetLists()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/lists?filter=open&key={Key}&token={Token}";
 
-            var lists = await Get<List[]>(url);
+            var lists = await Get<ListViewModel[]>(url);
 
             return lists.ToList();
         }
 
-        public async Task<List<Label>> GetLabels()
+        public async Task<List<LabelViewModel>> GetLabels()
         {
             var url = $"{UrlBase}/boards/{Board.Id}/labels?fields=all&key={Key}&token={Token}";
 
-            var lists = await Get<Label[]>(url);
+            var lists = await Get<LabelViewModel[]>(url);
 
             return lists.ToList();
         }

@@ -1,6 +1,6 @@
 ﻿using Flunt.Notifications;
 
-namespace TrelloSharp.Entities
+namespace TrelloSharp.ViewModels
 {
     public abstract class EntityBase : Notifiable
     {
