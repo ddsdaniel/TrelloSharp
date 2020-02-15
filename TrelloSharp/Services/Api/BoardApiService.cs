@@ -58,5 +58,15 @@ namespace TrelloSharp.Services.Api
 
             return lists.ToList();
         }
+
+        public async Task<List<Label>> GetLabels()
+        {
+            var url = $"{UrlBase}/boards/{Board.Id}/labels?fields=all&key={Key}&token={Token}";
+
+            var lists = await Get<Label[]>(url);
+
+            return lists.ToList();
+        }
+
     }
 }

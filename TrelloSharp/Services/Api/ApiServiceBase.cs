@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
-using TrelloSharp.Entities;
+using System;
 
 namespace TrelloSharp.Services.Api
 {
@@ -23,12 +21,10 @@ namespace TrelloSharp.Services.Api
         internal async Task<T> Get<T>(string url)
         {
             var response = await _httpClient.GetAsync(url);
-            if (response.IsSuccessStatusCode)
-            {
-                return await response.Content.ReadAsStringAsync .ReadAsAsync<T>();
-            }
-            return product;
+            if (response.IsSuccessStatusCode)            
+                return response.Content.ReadAsAsync<T>().Result;
 
+            throw new Exception(response.StatusCode.ToString());
         }
     }
 }
