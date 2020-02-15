@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace TrelloSharp.ViewModels
+﻿namespace TrelloSharp.ViewModels
 {
     public class LabelViewModel : EntityBase
     {
+        public string IdBoard { get; set; }
+        public string Name { get; set; }
+        public string Color { get; set; }
     }
 }

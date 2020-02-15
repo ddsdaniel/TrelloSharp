@@ -4,6 +4,6 @@ namespace TrelloSharp.ViewModels
 {
     public abstract class EntityBase : Notifiable
     {
-        public string Id { get; private set; }
+        public string Id { get; set; }
     }
 }

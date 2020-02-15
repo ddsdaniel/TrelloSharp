@@ -8,12 +8,12 @@ namespace TrelloSharp.Services.Api
 {
     public class OrganizationApiService : ApiServiceBase
     {
-        public OrganizationViewModel Organization { get; private set; }
+        public string OrganizationId { get; private set; }
 
-        protected OrganizationApiService(OrganizationViewModel organization, string key, string token)
-            : base(key, token)
+        public OrganizationApiService(string organizationId, string appKey, string userToken)
+            : base(appKey, userToken)
         {
-            Organization = organization;
+            OrganizationId = organizationId;
         }
 
         public async Task<List<BoardViewModel>> GetBoards(BoardFilter boardFilter)
@@ -22,7 +22,7 @@ namespace TrelloSharp.Services.Api
                 ? "all" 
                 : "open";
 
-            var url = $"{UrlBase}/organizations/{Organization.Id}/boards?filter={filter}&fields=all&key={Key}&token={Token}";
+            var url = $"{UrlBase}/organizations/{OrganizationId}/boards?filter={filter}&fields=all&key={AppKey}&token={UserToken}";
 
             var boards = await Get<BoardViewModel[]>(url);
 

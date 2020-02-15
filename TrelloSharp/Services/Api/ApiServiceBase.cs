@@ -7,14 +7,14 @@ namespace TrelloSharp.Services.Api
     public abstract class ApiServiceBase : ServiceBase
     {
         public string UrlBase => "https://api.trello.com/1";        
-        public string Key { get; private set; }
-        public string Token { get; private set; }
+        public string AppKey { get; private set; }
+        public string UserToken { get; private set; }
         private readonly HttpClient _httpClient;
 
-        protected ApiServiceBase(string key, string token)
+        protected ApiServiceBase(string appKey, string userToken)
         {            
-            Key = key;
-            Token = token;
+            AppKey = appKey;
+            UserToken = userToken;
             _httpClient = new HttpClient();
         }
 
