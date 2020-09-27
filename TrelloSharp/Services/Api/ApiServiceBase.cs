@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Threading.Tasks;
 using System;
+using TrelloSharp.ViewModels;
 
 namespace TrelloSharp.Services.Api
 {
@@ -23,6 +24,24 @@ namespace TrelloSharp.Services.Api
             var response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)            
                 return response.Content.ReadAsAsync<T>().Result;
+
+            throw new Exception(response.StatusCode.ToString());
+        }
+
+        internal async Task<TRetorno> Post<TEnvio, TRetorno>(string url, TEnvio dado)
+        {
+            var response = await _httpClient.PostAsJsonAsync(url, dado);
+            if (response.IsSuccessStatusCode)
+                return response.Content.ReadAsAsync<TRetorno>().Result;
+
+            throw new Exception(response.StatusCode.ToString());
+        }
+
+        internal async Task<TRetorno> Post<TRetorno>(string url)
+        {
+            var response = await _httpClient.PostAsync(url, null);
+            if (response.IsSuccessStatusCode)
+                return response.Content.ReadAsAsync<TRetorno>().Result;
 
             throw new Exception(response.StatusCode.ToString());
         }
