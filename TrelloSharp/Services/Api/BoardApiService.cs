@@ -32,9 +32,9 @@ namespace TrelloSharp.Services.Api
             return newList;
         }
 
-        public async Task<LabelViewModel> CreateLabel(string name, string idBoard)
+        public async Task<LabelViewModel> CreateLabel(string name, string color, string idBoard)
         {
-            var url = $"{UrlBase}/boards/{idBoard}/labels?key={AppKey}&token={UserToken}&name={name}";
+            var url = $"{UrlBase}/boards/{idBoard}/labels?key={AppKey}&token={UserToken}&name={name}&color={color}";
 
             var newLabel = await Post<LabelViewModel>(url);
 
@@ -43,16 +43,11 @@ namespace TrelloSharp.Services.Api
 
         public async Task<CardViewModel> CreateCard(string name, string idList)
         {
-            //TODO: idLabels
-            /*
-            Array<string>
-            Comma-separated list of label IDs to add to the card
-             */
             var url = $"{UrlBase}/cards?key={AppKey}&token={UserToken}&name={name}&idList={idList}";
 
-            var newLabel = await Post<CardViewModel>(url);
+            var newCard = await Post<CardViewModel>(url);
 
-            return newLabel;
+            return newCard;
         }
 
         public async Task<List<MemberViewModel>> GetMembers(string boardId)

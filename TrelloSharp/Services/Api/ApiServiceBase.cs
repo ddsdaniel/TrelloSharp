@@ -45,5 +45,10 @@ namespace TrelloSharp.Services.Api
 
             throw new Exception(response.StatusCode.ToString());
         }
+
+        internal async Task Post(string url)
+        {
+            await _httpClient.PostAsync(url, null);
+        }
     }
 }
