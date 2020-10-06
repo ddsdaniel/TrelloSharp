@@ -1,4 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using TrelloSharp.ViewModels;
 
 namespace TrelloSharp.Services.Api
@@ -17,6 +21,24 @@ namespace TrelloSharp.Services.Api
             var url = $"{UrlBase}/cards/{idCard}/idLabels?key={AppKey}&token={UserToken}&value={idLabel}";
 
             await Post(url);
+        }
+
+        public async Task<IdViewModel> UpdateCustomField<TViewModel>(string idCard, string idCustomField, TViewModel customFieldViewModel)
+        {
+            var serializerSettings = new JsonSerializerSettings
+            {
+                ContractResolver = new CamelCasePropertyNamesContractResolver()
+            };
+            
+            var jsonString = JsonConvert.SerializeObject(customFieldViewModel, serializerSettings);
+
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var url = $"{UrlBase}/card/{idCard}/customField/{idCustomField}/item?key={AppKey}&token={UserToken}";
+
+            var id = await PutStringContent<IdViewModel>(url, httpContent);
+
+            return id;
         }
     }
 }

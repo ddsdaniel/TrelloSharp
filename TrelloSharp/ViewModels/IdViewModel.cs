@@ -2,6 +2,6 @@
 {
     public class IdViewModel
     {
-        public string Id { get; private set; }
+        public string Id { get; set; }
     }
 }

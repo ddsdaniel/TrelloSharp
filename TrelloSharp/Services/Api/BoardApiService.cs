@@ -41,6 +41,33 @@ namespace TrelloSharp.Services.Api
             return newLabel;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="idBoard"></param>
+        /// <param name="type">Valid values: checkbox, list, number, text, date</param>
+        /// <param name="displayCardFront"></param>
+        /// <returns></returns>
+        public async Task<IdViewModel> CreateCustomField(string name, string idBoard, string type, bool displayCardFront)
+        {
+            var url = $"{UrlBase}/customFields?key={AppKey}&token={UserToken}&name={name}&idModel={idBoard}&modelType=board&type={type}&display_cardFront={displayCardFront.ToString().ToLower()}";
+
+            var id = await Post<IdViewModel>(url);
+
+            return id;
+        }
+
+        public async Task<PluginViewModel> EnablePlugin(string idBoard, string idPlugin)
+        {
+            var url = $"{UrlBase}/boards/{idBoard}/boardPlugins?key={AppKey}&token={UserToken}&idPlugin={idPlugin}";
+
+            var plugin = await Post<PluginViewModel>(url);
+
+            return plugin;
+        }
+
+   
         public async Task<CardViewModel> CreateCard(string name, string idList)
         {
             var url = $"{UrlBase}/cards?key={AppKey}&token={UserToken}&name={name}&idList={idList}";

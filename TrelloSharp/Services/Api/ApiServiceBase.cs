@@ -28,6 +28,24 @@ namespace TrelloSharp.Services.Api
             throw new Exception(response.StatusCode.ToString());
         }
 
+        internal async Task<TRetorno> PutStringContent<TRetorno>(string url, StringContent dado)
+        {
+            var response = await _httpClient.PutAsync(url, dado);
+            if (response.IsSuccessStatusCode)
+                return response.Content.ReadAsAsync<TRetorno>().Result;
+
+            throw new Exception(response.StatusCode.ToString());
+        }
+
+        internal async Task<TRetorno> Put<TEnvio, TRetorno>(string url, TEnvio dado)
+        {
+            var response = await _httpClient.PutAsJsonAsync(url, dado);
+            if (response.IsSuccessStatusCode)
+                return response.Content.ReadAsAsync<TRetorno>().Result;
+
+            throw new Exception(response.StatusCode.ToString());
+        }
+
         internal async Task<TRetorno> Post<TEnvio, TRetorno>(string url, TEnvio dado)
         {
             var response = await _httpClient.PostAsJsonAsync(url, dado);
