@@ -28,7 +28,7 @@ namespace TrelloSharp.ViewModels
         public PrefsViewModel Prefs { get; set; }
         public bool Subscribed { get; set; }
         public LabelNameViewModel LabelNames { get; set; }
-        public DateTime DateLastView { get; set; }
+        public DateTime? DateLastView { get; set; }
         public string ShortUrl { get; set; }
         public object TemplateGallery { get; set; }
         public List<MembershipViewModel> Memberships { get; set; }

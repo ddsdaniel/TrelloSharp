@@ -20,7 +20,7 @@ namespace TrelloSharp.ViewModels
         public List<string> IdLabels { get; set; }
         public bool ManualCoverAttachment { get; set; }
         public string Name { get; set; }
-        public int Pos { get; set; }
+        public decimal Pos { get; set; }
         public string ShortLink { get; set; }
         public bool IsTemplate { get; set; }
         public BadgesViewModel Badges { get; set; }

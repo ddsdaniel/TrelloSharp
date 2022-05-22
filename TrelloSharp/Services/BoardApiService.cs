@@ -1,15 +1,18 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TrelloSharp.Abstractions.Services;
 using TrelloSharp.ViewModels;
 
-namespace TrelloSharp.Services.Api
+namespace TrelloSharp.Services
 {
-    public class BoardApiService : ApiServiceBase
+    public class BoardApiService : ApiService
     {
 
-        public BoardApiService(string appKey, string userToken)
-            : base(appKey, userToken)
+        public BoardApiService(string appKey, string userToken, ILogger<Service> logger)
+            : base(appKey, userToken, logger)
         {
 
         }
@@ -67,7 +70,7 @@ namespace TrelloSharp.Services.Api
             return plugin;
         }
 
-   
+
         public async Task<CardViewModel> CreateCard(string name, string idList)
         {
             var url = $"{UrlBase}/cards?key={AppKey}&token={UserToken}&name={name}&idList={idList}";
@@ -104,7 +107,7 @@ namespace TrelloSharp.Services.Api
             return checklists.ToList();
         }
 
-        public async Task<List<CardViewModel>> GetCards(string boardId)
+        public async Task<List<CardViewModel>> GetCardsAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}/cards?filter=open&customFieldItems=true&key={AppKey}&token={UserToken}";
 
@@ -131,7 +134,7 @@ namespace TrelloSharp.Services.Api
             return lists.ToList();
         }
 
-        public async Task<List<LabelViewModel>> GetLabels(string boardId)
+        public async Task<List<LabelViewModel>> GetLabelsAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}/labels?fields=all&key={AppKey}&token={UserToken}";
 
