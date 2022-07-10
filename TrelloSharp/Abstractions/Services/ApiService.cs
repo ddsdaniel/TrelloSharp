@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System;
 using Microsoft.Extensions.Logging;
+using System.Net.Http.Headers;
 
 namespace TrelloSharp.Abstractions.Services
 {
@@ -18,7 +19,15 @@ namespace TrelloSharp.Abstractions.Services
             AppKey = appKey;
             UserToken = userToken;
             _logger = logger;
-            _httpClient = new HttpClient();
+
+            var httpClientHandler = new HttpClientHandler
+            {
+                Proxy = null,
+                UseProxy = false
+            };
+            _httpClient = new HttpClient(httpClientHandler);
+            
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
         internal async Task<T> Get<T>(string url)
@@ -27,7 +36,10 @@ namespace TrelloSharp.Abstractions.Services
 
             var response = await _httpClient.GetAsync(url);
             if (response.IsSuccessStatusCode)
-                return response.Content.ReadAsAsync<T>().Result;
+            {
+                var viewModel = await response.Content.ReadAsAsync<T>();
+                return viewModel;
+            }
 
             throw new Exception(response.StatusCode.ToString());
         }
@@ -36,7 +48,7 @@ namespace TrelloSharp.Abstractions.Services
         {
             var response = await _httpClient.PutAsync(url, dado);
             if (response.IsSuccessStatusCode)
-                return response.Content.ReadAsAsync<TRetorno>().Result;
+                return await response.Content.ReadAsAsync<TRetorno>();
 
             throw new Exception(response.StatusCode.ToString());
         }
@@ -45,7 +57,7 @@ namespace TrelloSharp.Abstractions.Services
         {
             var response = await _httpClient.PutAsJsonAsync(url, dado);
             if (response.IsSuccessStatusCode)
-                return response.Content.ReadAsAsync<TRetorno>().Result;
+                return await response.Content.ReadAsAsync<TRetorno>();
 
             throw new Exception(response.StatusCode.ToString());
         }
@@ -54,7 +66,7 @@ namespace TrelloSharp.Abstractions.Services
         {
             var response = await _httpClient.PostAsJsonAsync(url, dado);
             if (response.IsSuccessStatusCode)
-                return response.Content.ReadAsAsync<TRetorno>().Result;
+                return await response.Content.ReadAsAsync<TRetorno>();
 
             throw new Exception(response.StatusCode.ToString());
         }
@@ -63,7 +75,7 @@ namespace TrelloSharp.Abstractions.Services
         {
             var response = await _httpClient.PostAsync(url, null);
             if (response.IsSuccessStatusCode)
-                return response.Content.ReadAsAsync<TRetorno>().Result;
+                return await response.Content.ReadAsAsync<TRetorno>();
 
             throw new Exception(response.StatusCode.ToString());
         }

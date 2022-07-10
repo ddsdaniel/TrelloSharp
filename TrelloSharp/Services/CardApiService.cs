@@ -46,7 +46,7 @@ namespace TrelloSharp.Services
             return id;
         }
 
-        public async Task<List<ActionViewModel>> GetActions(string cardId)
+        public async Task<List<ActionViewModel>> GetActionsAsync(string cardId)
         {
             var todosTipos = "acceptEnterpriseJoinRequest,addAttachmentToCard,addChecklistToCard,addMemberToBoard,addMemberToCard,addMemberToOrganization,addOrganizationToEnterprise,addToEnterprisePluginWhitelist,addToOrganizationBoard,commentCard,convertToCardFromCheckItem,copyBoard,copyCard,copyCommentCard,createBoard,createCard,createList,createOrganization,deleteBoardInvitation,deleteCard,deleteOrganizationInvitation,disableEnterprisePluginWhitelist,disablePlugin,disablePowerUp,emailCard,enableEnterprisePluginWhitelist,enablePlugin,enablePowerUp,makeAdminOfBoard,makeNormalMemberOfBoard,makeNormalMemberOfOrganization,makeObserverOfBoard,memberJoinedTrello,moveCardFromBoard,moveCardToBoard,moveListFromBoard,moveListToBoard,removeChecklistFromCard,removeFromEnterprisePluginWhitelist,removeFromOrganizationBoard,removeMemberFromCard,removeOrganizationFromEnterprise,unconfirmedBoardInvitation,unconfirmedOrganizationInvitation,updateBoard,updateCard,updateCheckItemStateOnCard,updateChecklist,updateList,updateMember,updateOrganization";
 
@@ -57,7 +57,7 @@ namespace TrelloSharp.Services
             return actions.ToList();
         }
 
-        public async Task<List<AttachmentViewModel>> GetAttachments(string cardId)
+        public async Task<List<AttachmentViewModel>> GetAttachmentsAsync(string cardId)
         {
             var url = $"{UrlBase}/cards/{cardId}/attachments?key={AppKey}&token={UserToken}";
 

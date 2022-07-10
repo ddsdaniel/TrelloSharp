@@ -80,7 +80,7 @@ namespace TrelloSharp.Services
             return newCard;
         }
 
-        public async Task<List<MemberViewModel>> GetMembers(string boardId)
+        public async Task<List<MemberViewModel>> GetMembersAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}/members?key={AppKey}&token={UserToken}";
 
@@ -98,7 +98,7 @@ namespace TrelloSharp.Services
             return customFields.ToList();
         }
 
-        public async Task<List<CheckListViewModel>> GetCheckLists(string boardId)
+        public async Task<List<CheckListViewModel>> GetCheckListsAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}/checklists?key={AppKey}&token={UserToken}";
 
@@ -116,7 +116,7 @@ namespace TrelloSharp.Services
             return cards.ToList();
         }
 
-        public async Task<BoardViewModel> GetBoard(string boardId)
+        public async Task<BoardViewModel> GetBoardAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}?key={AppKey}&token={UserToken}";
 
@@ -125,7 +125,7 @@ namespace TrelloSharp.Services
             return board;
         }
 
-        public async Task<List<ListViewModel>> GetLists(string boardId)
+        public async Task<List<ListViewModel>> GetListsAsync(string boardId)
         {
             var url = $"{UrlBase}/boards/{boardId}/lists?filter=open&key={AppKey}&token={UserToken}";
 
